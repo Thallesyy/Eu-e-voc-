@@ -1,0 +1,589 @@
+/* ===== FEATURE 10: REVELAR SEÇÕES AO ROLAR (SCROLL REVEAL) ===== */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s ease;
+  will-change: transform, opacity, filter;
+}
+
+.reveal-up    { transform: translateY(40px); }
+.reveal-down  { transform: translateY(-40px); }
+.reveal-left  { transform: translateX(-44px); }
+.reveal-right { transform: translateX(44px); }
+.reveal-scale { transform: scale(0.86); }
+.reveal-blur  { transform: translateY(24px); filter: blur(10px); }
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+/* ===== ANIMAÇÃO DE TROCA DE FOTO NO ÁLBUM ===== */
+.card-img.front {
+  will-change: transform, opacity;
+}
+@keyframes photoOutLeft {
+  to { transform: translateX(-70px) scale(0.85) rotate(-3deg); opacity: 0; }
+}
+@keyframes photoOutRight {
+  to { transform: translateX(70px) scale(0.85) rotate(3deg); opacity: 0; }
+}
+@keyframes photoInFromRight {
+  from { transform: translateX(70px) scale(0.9) rotate(3deg); opacity: 0; }
+  to   { transform: translateX(0) scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes photoInFromLeft {
+  from { transform: translateX(-70px) scale(0.9) rotate(-3deg); opacity: 0; }
+  to   { transform: translateX(0) scale(1) rotate(0deg); opacity: 1; }
+}
+.card-img.front.anim-out-left  { animation: photoOutLeft 0.18s ease forwards; }
+.card-img.front.anim-out-right { animation: photoOutRight 0.18s ease forwards; }
+.card-img.front.anim-in-right  { animation: photoInFromRight 0.32s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+.card-img.front.anim-in-left   { animation: photoInFromLeft 0.32s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+/* ===== FEATURE 9: JOGO DO ARCO E FLECHA + CADEADO ===== */
+#balloonGameOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: radial-gradient(circle at 50% 30%, #2a0a1a 0%, #150509 70%, #0a0308 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.balloon-game-text {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(16px, 5vw, 22px);
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255,107,157,0.7);
+  padding: 0 20px;
+  animation: shootTextIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.balloon-box-area {
+  position: relative;
+  width: min(92vw, 380px);
+  height: 60vh;
+  max-height: 460px;
+}
+.balloon-box-area.falling .crate-box {
+  transition: transform 0.5s cubic-bezier(0.55,0,0.85,0.35) !important;
+  transform: translate(-50%, 140px) rotate(8deg) !important;
+}
+.balloon-box-area.zoom .crate-box {
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease 0.2s !important;
+  transform: translate(-50%, 100px) scale(3) !important;
+  opacity: 0;
+}
+
+.balloon-strings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.balloon {
+  position: absolute;
+  width: 54px;
+  height: 66px;
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: inset -8px -10px 16px rgba(0,0,0,0.25), inset 6px 8px 12px rgba(255,255,255,0.25), 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+  animation: balloonBob 3s ease-in-out infinite;
+}
+.balloon.popped {
+  transform: translate(-50%, -50%) scale(0) !important;
+  opacity: 0;
+  pointer-events: none;
+}
+.balloon-knot {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid rgba(0,0,0,0.35);
+}
+@keyframes balloonBob {
+  0%, 100% { margin-top: 0px; }
+  50%      { margin-top: -8px; }
+}
+
+.crate-box {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, 0);
+  font-size: 56px;
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,0.5));
+  transition: transform 0.25s ease-out;
+}
+
+.bow {
+  position: fixed;
+  left: 20px;
+  bottom: 24px;
+  font-size: 44px;
+  transform-origin: center;
+  transition: transform 0.15s ease-out;
+  z-index: 100001;
+  filter: drop-shadow(0 0 10px rgba(255,107,157,0.5));
+}
+
+.flying-arrow {
+  position: fixed;
+  font-size: 22px;
+  color: #ffd76b;
+  z-index: 100002;
+  pointer-events: none;
+  text-shadow: 0 0 8px rgba(255,215,107,0.8);
+}
+
+/* ===== CADEADO NUMÉRICO ===== */
+#padlockOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: radial-gradient(circle at 50% 40%, #2a0a1a 0%, #150509 70%, #0a0308 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: padlockOverlayIn 0.4s ease;
+  padding: 20px;
+}
+@keyframes padlockOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.padlock-body {
+  position: relative;
+  width: min(88vw, 300px);
+  background: linear-gradient(160deg, #1c1c22, #101014);
+  border: 2px solid rgba(255,107,157,0.25);
+  border-radius: 24px;
+  padding: 48px 24px 28px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(255,107,157,0.15);
+  text-align: center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.padlock-body.shake { animation: padlockShake 0.4s ease; border-color: #ff5252; }
+.padlock-body.success { border-color: #6bffa0; box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 50px rgba(107,255,160,0.4); }
+@keyframes padlockShake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-10px); }
+  40%      { transform: translateX(10px); }
+  60%      { transform: translateX(-8px); }
+  80%      { transform: translateX(8px); }
+}
+
+.padlock-shackle {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 48px;
+  border: 10px solid #b8bec6;
+  border-bottom: none;
+  border-radius: 40px 40px 0 0;
+}
+
+.padlock-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.padlock-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.padlock-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.padlock-dot.filled {
+  background: #ff6b9d;
+  border-color: #ff6b9d;
+  box-shadow: 0 0 10px rgba(255,107,157,0.8);
+}
+
+.padlock-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.padlock-key {
+  aspect-ratio: 1;
+  border-radius: 14px;
+  border: 1px solid rgba(107,255,150,0.3);
+  background: rgba(107,255,150,0.05);
+  color: #7dffb0;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  text-shadow: 0 0 8px rgba(107,255,150,0.6);
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+.padlock-key:active {
+  transform: scale(0.92);
+  background: rgba(107,255,150,0.2);
+}
+
+.padlock-hint {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.5px;
+}
+
+@keyframes shootTextIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== FEATURE 4: ANIMAÇÃO DE ENTRADA ===== */
+#welcomeOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease;
+}
+#welcomeOverlay.fade-out { opacity: 0; }
+
+.welcome-hearts-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.welcome-heart-rain {
+  position: absolute;
+  top: -40px;
+  animation: welcomeHeartFall linear forwards;
+  pointer-events: none;
+}
+@keyframes welcomeHeartFall {
+  0%   { top: -40px; opacity: 1; transform: rotate(0deg); }
+  80%  { opacity: 1; }
+  100% { top: 110vh; opacity: 0; transform: rotate(30deg); }
+}
+
+.welcome-text {
+  position: relative;
+  z-index: 2;
+  font-size: clamp(22px, 6vw, 34px);
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 30px rgba(255,107,157,0.9), 0 2px 8px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
+  padding: 24px 32px;
+  background: rgba(0,0,0,0.35);
+  border-radius: 24px;
+  backdrop-filter: blur(6px);
+  animation: welcomeTextPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+@keyframes welcomeTextPop {
+  0%   { opacity:0; transform: scale(0.6); }
+  100% { opacity:1; transform: scale(1); }
+}
+.welcome-text.fade-out {
+  opacity: 0;
+  transform: scale(0.8) translateY(-10px);
+}
+
+/* ===== FEATURE 3: EASTER EGG ===== */
+#easterEggBtn {
+  position: absolute;
+  bottom: 80px;
+  right: 24px;
+  font-size: 28px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  filter: drop-shadow(0 0 8px rgba(255,107,157,0.7));
+  animation: easterPulse 2s ease-in-out infinite;
+  z-index: 10;
+}
+#easterEggBtn.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+@keyframes easterPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(255,107,157,0.6)); }
+  50%       { filter: drop-shadow(0 0 16px rgba(255,107,157,1)); }
+}
+
+#easterEggModal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+#easterEggModal.show { opacity: 1; }
+
+.easter-egg-content {
+  background: linear-gradient(145deg, #2a0a1a, #1a0810);
+  border: 2px solid rgba(255,107,157,0.4);
+  border-radius: 24px;
+  padding: 36px 28px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(255,107,157,0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+#easterEggModal.show .easter-egg-content { transform: scale(1); }
+
+.easter-egg-hearts {
+  font-size: 48px;
+  margin-bottom: 16px;
+  animation: easterPulse 1.5s ease-in-out infinite;
+}
+.easter-egg-msg {
+  font-size: 16px;
+  color: #f0c0d0;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.easter-egg-close {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.easter-egg-close:active { transform: scale(0.95); }
+
+/* ===== FEATURE 2: LINHA DO TEMPO ===== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(255,107,157,0.5), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 16px;
+  padding: 12px 0;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: timelineIn 0.5s ease forwards;
+}
+@keyframes timelineIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.timeline-dot {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,107,157,0.15);
+  border: 2px solid rgba(255,107,157,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.timeline-item:last-child .timeline-content { border-bottom: none; }
+
+.timeline-date {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff6b9d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.timeline-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.timeline-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+
+/* ===== FEATURE 5: RAZÕES ===== */
+.reason-display {
+  background: rgba(255,107,157,0.1);
+  border: 1px solid rgba(255,107,157,0.25);
+  border-radius: 20px;
+  padding: 28px 20px;
+  margin-bottom: 20px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.reason-number {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,107,157,0.7);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.reason-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  line-height: 1.5;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.reason-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.reason-btn {
+  width: 100%;
+  max-width: 260px;
+}
+.reason-progress {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ===== FEATURE 6: CONTADOR DE MOMENTOS ===== */
+.moment-counter-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 16px 0 20px;
+}
+.moment-count {
+  font-size: 72px;
+  font-weight: 900;
+  color: #ff6b9d;
+  line-height: 1;
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), color 0.2s;
+  text-shadow: 0 0 30px rgba(255,107,157,0.5);
+}
+.moment-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.moment-btn {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  padding: 16px;
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 8px 24px rgba(255,107,157,0.4);
+}
+.moment-btn:active { transform: scale(0.95); }
+.moment-hint {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #ff6b9d;
+  font-style: italic;
+  min-height: 20px;
+  transition: opacity 0.5s ease;
+  opacity: 0;
+}
+
+/* Coração de celebração */
+.celebration-heart {
+  position: fixed;
+  font-size: 28px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: celebrationFloat 1.2s ease forwards;
+}
+@keyframes celebrationFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120px) scale(0.5); opacity: 0; }
+}

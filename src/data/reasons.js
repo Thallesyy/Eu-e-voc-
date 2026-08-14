@@ -1,0 +1,18 @@
+export const reasons = [
+  'Porque voce me faz feliz',
+  'Porque eu me sinto bem com você do meu lado',
+  'porque eu te amo',
+  'porque eu me sinto amado por vc',
+  'porque eu quero estar com você sempre',
+  'porque o seu calor virou uma coisa que eu preciso pra me sentir bem',
+  'porque eu me sinto mais eu mesmo quando estou com você',
+  'porque eu amo o jeito que a gente se entende mesmo sem falar nada',
+  'porque eu amo o jeito que a gente se diverte junto',
+  'independente de tudo, eu so consigo pensar em vc',
+  'Porque eu quero ter uma familia com você',
+  'porque eu quero que a gente seja feliz juntos',
+  'porque eu quero que a gente se ame pra sempre',
+  'porque eu vou casar com voce',
+  'porque eu quero que a gente tenha filhos juntos',
+  'porque eu quero que a gente viva uma vida inteira juntos',
+];
