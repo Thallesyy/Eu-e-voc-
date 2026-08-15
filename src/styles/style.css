@@ -698,6 +698,31 @@ body {
   margin: 10px 0;
 }
 
+.drag-stage {
+  position: relative;
+  flex: 1;
+  margin: 10px 0;
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+}
+.drag-stage:active { cursor: grabbing; }
+
+.drag-photo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: auto;
+  max-height: 65vh;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  user-select: none;
+  -webkit-user-drag: none;
+  will-change: transform, opacity;
+}
+
 .card-img {
   width: 100%;
   max-width: 360px;

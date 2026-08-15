@@ -94,19 +94,13 @@ export default function App() {
             </Reveal>
 
             <Reveal variant="right">
-              <section className="section">
-                <div className="section-card special">
-                  <div className="section-header">Mais um cantinho pra você 💌</div>
-                  <div className="section-body">
-                    <SpecialTextBox
-                      label="Escreva mais algo especial"
-                      placeholder="A primeira caixa encheu, então aqui vai mais espaço pra você escrever o que quiser pra mim"
-                      storageKey="eu_e_voce_texto_especial_2"
-                      firebasePath="site/textoEspecial2"
-                    />
-                  </div>
-                </div>
-              </section>
+              <SpecialMessage
+                header="Mais um recado pra você 💌"
+                intro="Tem mais uma coisa que eu queria te falar"
+                message="Escreva aqui o segundo recado — troque este texto pelo que você quiser declarar pra ela."
+                showLabel="Mostrar recado"
+                hideLabel="Esconder recado"
+              />
             </Reveal>
 
             {/* Banner (foto + texto) — duplique este <Reveal><PhotoBanner>...</PhotoBanner></Reveal> pra criar mais banners */}
