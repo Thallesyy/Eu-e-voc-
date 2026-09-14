@@ -4,7 +4,7 @@
   "description": "Uma carta de amor digital especial para Nicolly",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffeaa7",
+  "background_color": "#0b0b10",
   "theme_color": "#ff6b9d",
   "orientation": "portrait",
   "scope": "/",
@@ -60,15 +60,6 @@
     }
   ],
   "categories": ["lifestyle", "entertainment"],
-  "screenshots": [
-    {
-      "src": "screenshot1.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Página inicial com mensagem de amor"
-    }
-  ],
   "related_applications": [],
   "prefer_related_applications": false
 }

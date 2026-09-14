@@ -482,6 +482,123 @@
   line-height: 1.5;
 }
 
+/* ===== MAPA DE LUGARES ===== */
+.places-map-wrap {
+  margin: 0 14px 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.places-map {
+  width: 100%;
+  height: 260px;
+  background: #0b0b10;
+}
+.places-map .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9) saturate(0.65);
+}
+.places-map .leaflet-control-attribution {
+  background: rgba(11, 11, 16, 0.6) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+.places-map .leaflet-control-attribution a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.places-map .leaflet-control-zoom {
+  border: none !important;
+}
+.places-map .leaflet-control-zoom a {
+  background: rgba(20, 20, 26, 0.85) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+.places-map .leaflet-control-zoom a:hover {
+  background: rgba(255, 107, 157, 0.35) !important;
+}
+
+.place-pin-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  font-size: 20px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+  transition: transform 0.15s ease;
+  cursor: pointer;
+}
+.place-pin-inner:hover { transform: scale(1.15); }
+
+.place-memory-card {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0 14px;
+  position: relative;
+  transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.35s ease;
+}
+.place-memory-card.open {
+  max-height: 520px;
+  overflow-y: auto;
+  opacity: 1;
+  margin: 0 14px 14px;
+  background: rgba(255, 107, 157, 0.1);
+  border: 1px solid rgba(255, 107, 157, 0.25);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.place-memory-photos {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 2px 0 12px;
+  scroll-snap-type: x mandatory;
+}
+.place-memory-photo {
+  width: 150px;
+  height: 105px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.place-memory-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+.place-memory-date {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ff6b9d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.place-memory-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+  padding-right: 24px;
+}
+.place-memory-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+  margin: 0;
+}
+
 /* ===== FEATURE 5: RAZÕES ===== */
 .reason-display {
   background: rgba(255,107,157,0.1);

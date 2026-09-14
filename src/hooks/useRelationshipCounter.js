@@ -23,7 +23,7 @@ function formatElapsed() {
 
   let text = '';
   if (years > 0) text += years + ' ano' + (years > 1 ? 's' : '') + ', ';
-  if (months > 0 || years > 0) text += months + ' mê' + (months !== 1 ? 'ses' : 's') + ', ';
+  if (months > 0 || years > 0) text += months + (months !== 1 ? ' meses, ' : ' mês, ');
   text += days + ' dia' + (days !== 1 ? 's' : '');
 
   const time =

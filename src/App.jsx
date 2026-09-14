@@ -12,6 +12,7 @@ import PhotoBanner from './components/PhotoBanner';
 import SpecialTextBox from './components/SpecialTextBox';
 import SpecialMessage from './components/SpecialMessage';
 import Timeline from './components/Timeline';
+import PlacesMap from './components/PlacesMap';
 import Reasons from './components/Reasons';
 import MomentCounter from './components/MomentCounter';
 import MessageCounter from './components/MessageCounter';
@@ -124,6 +125,10 @@ export default function App() {
 
             <Reveal variant="up">
               <Timeline />
+            </Reveal>
+
+            <Reveal variant="up">
+              <PlacesMap />
             </Reveal>
 
             <Reveal variant="right">
