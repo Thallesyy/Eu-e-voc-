@@ -14,6 +14,7 @@ import SpecialMessage from './components/SpecialMessage';
 import Timeline from './components/Timeline';
 import PlacesMap from './components/PlacesMap';
 import Reasons from './components/Reasons';
+import PhotoPuzzle from './components/PhotoPuzzle';
 import MomentCounter from './components/MomentCounter';
 import MessageCounter from './components/MessageCounter';
 import MomentsGrid from './components/MomentsGrid';
@@ -133,6 +134,10 @@ export default function App() {
 
             <Reveal variant="right">
               <Reasons />
+            </Reveal>
+
+            <Reveal variant="scale">
+              <PhotoPuzzle />
             </Reveal>
 
             <Reveal variant="left">
