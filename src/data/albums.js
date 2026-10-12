@@ -12,14 +12,14 @@ function buildPhotos(prefix, count, caption) {
 export const albums = {
   dates: {
     title: 'Suas fotos',
-    photos: buildPhotos('dates', 39, 'Todas as tuas fotos que eu tanto amo ver'),
+    photos: buildPhotos('dates', 51, 'Todas as tuas fotos que eu tanto amo ver'),
   },
   random: {
     title: 'Fotos aleatórias',
-    photos: buildPhotos('random', 29, 'Nossos momentos mais aleatórios'),
+    photos: buildPhotos('random', 33, 'Nossos momentos mais aleatórios'),
   },
   us: {
     title: 'Nossas fotos',
-    photos: buildPhotos('us', 53, 'Nossos momentos especiais'),
+    photos: buildPhotos('us', 107, 'Nossos momentos especiais'),
   },
 };
